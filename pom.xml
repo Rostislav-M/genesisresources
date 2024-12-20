@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.genesisresources</groupId>
-	<artifactId>genesis-resources</artifactId>
+	<artifactId>genesisresources</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>genesis-resources</name>
+	<name>genesisresources</name>
 	<description>Genesis resources project engeto</description>
 	<url/>
 	<licenses>

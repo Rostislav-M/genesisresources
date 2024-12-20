@@ -9,7 +9,7 @@ public class User {
     private String name;
     private String surname;
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    private String personID;
+    private String personId;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private String uuid;
 
@@ -42,12 +42,12 @@ public class User {
         this.surname = surname;
     }
 
-    public String getPersonID() {
-        return personID;
+    public String getPersonId() {
+        return personId;
     }
 
-    public void setPersonID(String personID) {
-        this.personID = personID;
+    public void setPersonId(String personId) {
+        this.personId = personId;
     }
 
     public String getUuid() {
@@ -58,8 +58,4 @@ public class User {
         this.uuid = uuid;
     }
 
-    @Override
-    public String toString() {
-        return "User{id=" + id + ", name='" + name + "', surname='" + surname + "', personID='" + personID + "', uuid='" + uuid + "'}";
-    }
 }
