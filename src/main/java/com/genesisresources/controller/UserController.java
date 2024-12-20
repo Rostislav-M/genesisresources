@@ -88,7 +88,7 @@ public class UserController {
     public ResponseEntity<?> updateUser(@RequestBody User user){
         boolean isUserUpdated =  userService.updateUser(user);
         if (isUserUpdated) {
-        return new ResponseEntity<>("User with id: " + user.getId() +  " has been updated", HttpStatus.OK);
+        return new ResponseEntity<>("User with id: " + user.getId() +  " has been successfully updated", HttpStatus.OK);
         }
         return new ResponseEntity<>("User with id: " + user.getId() + " was not found and could not be updated.", HttpStatus.NOT_FOUND);
     }
