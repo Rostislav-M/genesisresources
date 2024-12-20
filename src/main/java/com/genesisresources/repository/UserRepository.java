@@ -12,9 +12,9 @@ import java.util.List;
 
 @Repository
 public class UserRepository {
-    private final JdbcTemplate jdbcTemplate;
+   private final JdbcTemplate jdbcTemplate;
 
-    public UserRepository(JdbcTemplate jdbcTemplate) {
+   public UserRepository(JdbcTemplate jdbcTemplate) {
        this.jdbcTemplate = jdbcTemplate;
     }
 

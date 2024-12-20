@@ -12,7 +12,6 @@ import java.util.Scanner;
 import java.util.UUID;
 
 
-
 @Service
 public class UserService {
     private static final String FILE_PATH="src/main/resources/dataPersonId.txt";
@@ -36,7 +35,7 @@ public class UserService {
     }
 
     public String createUser(User user) throws IOException {
-        List<String> listOfPersonId = loadFromFileDataPersonId();
+        List<String> personIdList = loadFromFileDataPersonId();
 
         if (user.getName() == null && user.getPersonId() == null){
             throw new IllegalArgumentException("User must contain at least a name and personId");
@@ -61,9 +60,9 @@ public class UserService {
         if (isPersonIdUsedByUser(user.getPersonId())) {
             return "idUsed";
         } else {
-            for(String personID : listOfPersonId){
-                if (user.getPersonId().equals(personID)) {
-                    user.setPersonId(personID);
+            for(String personId : personIdList){
+                if (user.getPersonId().equals(personId)) {
+                    user.setPersonId(personId);
                     user.setUuid(UUID.randomUUID().toString());
                     userRepository.createUser(user);
                     return "userCreated";
