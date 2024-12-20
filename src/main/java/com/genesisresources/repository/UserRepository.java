@@ -31,42 +31,42 @@ public class UserRepository {
 
     public User getUserById(Long id){
         try{
-        String sql = "SELECT id, name, surname FROM users WHERE id= ?";
-        return jdbcTemplate.queryForObject(sql, new RowMapper<User>() {
-            @Override
-            public User mapRow(ResultSet result, int rowNum) throws SQLException{
-                User user = new User();
-                user.setId(result.getLong("id"));
-                user.setName(result.getString("name"));
-                user.setSurname(result.getString("surname"));
-                return user;
-            }
-        }, id);
+            String sql = "SELECT id, name, surname FROM users WHERE id= ?";
+            return jdbcTemplate.queryForObject(sql, new RowMapper<User>() {
+                @Override
+                public User mapRow(ResultSet result, int rowNum) throws SQLException{
+                    User user = new User();
+                    user.setId(result.getLong("id"));
+                    user.setName(result.getString("name"));
+                    user.setSurname(result.getString("surname"));
+                    return user;
+                }
+            }, id);
         }catch (EmptyResultDataAccessException e){
-           return null;
+            return null;
         }
     }
 
     public User getUserByIdDetailed(Long id){
-    try{
-        String sql = "SELECT * FROM users WHERE id= ?";
-        return jdbcTemplate.queryForObject(sql, new RowMapper<User>() {
-            @Override
-            public User mapRow(ResultSet result, int rowNum) throws SQLException{
-                User user = new User();
-                user.setId(result.getLong("id"));
-                user.setName(result.getString("name"));
-                user.setSurname(result.getString("surname"));
-                user.setPersonId(result.getString("person_id"));
-                user.setUuid(result.getString("uuid"));
-                return user;
-            }
-        }, id);
-    } catch (EmptyResultDataAccessException e){
-       return null;
+        try{
+            String sql = "SELECT * FROM users WHERE id= ?";
+            return jdbcTemplate.queryForObject(sql, new RowMapper<User>() {
+                @Override
+                public User mapRow(ResultSet result, int rowNum) throws SQLException{
+                    User user = new User();
+                    user.setId(result.getLong("id"));
+                    user.setName(result.getString("name"));
+                    user.setSurname(result.getString("surname"));
+                    user.setPersonId(result.getString("person_id"));
+                    user.setUuid(result.getString("uuid"));
+                    return user;
+                }
+            }, id);
+        } catch (EmptyResultDataAccessException e){
+            return null;
+        }
     }
-}
-    //List <{id: string, name: string, surname: string }>
+
     public List<User> getAllUsers(){
         String sql = "SELECT id, name, surname FROM users";
         return jdbcTemplate.query(sql, new RowMapper<User>() {
