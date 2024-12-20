@@ -1,6 +1,5 @@
 package com.genesisresources.model;
 
-
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 public class User {

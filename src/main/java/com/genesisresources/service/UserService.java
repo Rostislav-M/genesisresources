@@ -3,7 +3,6 @@ package com.genesisresources.service;
 import com.genesisresources.model.User;
 import com.genesisresources.repository.UserRepository;
 import org.springframework.stereotype.Service;
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
