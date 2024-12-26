@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.UUID;
 
-
 @Service
 public class UserService {
     private static final String FILE_PATH="src/main/resources/dataPersonId.txt";
@@ -22,8 +21,7 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-
-    public List<String> loadFromFileDataPersonId() throws IOException {
+    private List<String> loadFromFileDataPersonId() throws IOException {
         List<String> personIdList= new ArrayList<>();
         try(Scanner scanner = new Scanner(new BufferedReader(new FileReader(FILE_PATH)))){
             while(scanner.hasNextLine()){
@@ -37,23 +35,18 @@ public class UserService {
     public String createUser(User user) throws IOException {
         List<String> personIdList = loadFromFileDataPersonId();
 
-        if (user.getName() == null && user.getPersonId() == null){
-            throw new IllegalArgumentException("User must contain at least a name and personId");
+        if (user.getName() == null || user.getName().trim().isEmpty() ||
+            user.getPersonId() == null || user.getPersonId().trim().isEmpty()) {
+            throw new IllegalArgumentException(
+                    "Invalid user object! " + "\n" +
+                    "Attributes 'name' and 'personId' must not be null or empty, 'surname' is optional");
         }
 
-        if (user.getName() == null || user.getName().trim().isEmpty()) {
-            throw new IllegalArgumentException("name cannot be null or empty");
-        }
-
-        if (user.getPersonId() == null || user.getPersonId().trim().isEmpty()) {
-            throw new IllegalArgumentException("personId cannot be null or empty");
-        }
-
-        if (user.getUuid()!= null) {
+        if (user.getUuid() != null) {
             throw new IllegalArgumentException("uuid should not be provided in the request");
         }
 
-        if ((user.getId()!= null)) {
+        if (user.getId()!= null) {
             throw new IllegalArgumentException("id should not be provided in the request");
         }
 
@@ -63,7 +56,7 @@ public class UserService {
             for(String personId : personIdList){
                 if (user.getPersonId().equals(personId)) {
                     user.setPersonId(personId);
-                    user.setUuid(UUID.randomUUID().toString());
+                    user.setUuid(generateUniqueUuid());
                     userRepository.createUser(user);
                     return "userCreated";
                 }
@@ -91,9 +84,9 @@ public class UserService {
     public boolean updateUser(User user){
         if (user.getId() == null || user.getId() <=0 || user.getName() == null || user.getName().trim().isEmpty()) {
             throw new IllegalArgumentException(
-                    "Invalid user object! " +
-                    "id must be a positive number and cannot be null or empty, " +
-                    "name must not be null or empty, surname is optional");
+                    "Invalid user object! " + "\n" +
+                    "Attributes 'id' must be a positive number and cannot be null or empty," + "\n" +
+                    "'name' must not be null or empty, 'surname' is optional");
         }
 
         if (user.getUuid() != null) {
@@ -113,9 +106,22 @@ public class UserService {
         return (deletedRowsCount > 0);
     }
 
-    public boolean isPersonIdUsedByUser(String personId) {
+    private boolean isPersonIdUsedByUser(String personId) {
         Integer count = userRepository.isPersonIdUsedByUser(personId);
         return (count != null && count > 0);
+    }
+
+    private boolean isUuidUsedByUser(String uuid) {
+        Integer count = userRepository.isUuidUsedByUser(uuid);
+        return (count != null && count > 0);
+    }
+
+    private String generateUniqueUuid() {
+        String uniqueUuid = UUID.randomUUID().toString();
+        while (isUuidUsedByUser(uniqueUuid)) {
+            uniqueUuid = UUID.randomUUID().toString();
+        }
+        return uniqueUuid;
     }
 
 }

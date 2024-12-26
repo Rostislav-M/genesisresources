@@ -3,6 +3,7 @@ package com.genesisresources.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 public class User {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private Long id;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private String name;
