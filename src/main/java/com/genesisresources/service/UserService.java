@@ -51,7 +51,7 @@ public class UserService {
         }
 
         if (isPersonIdUsedByUser(user.getPersonId())) {
-            return "idUsed";
+            return "personIdUsed";
         } else {
             for(String personId : personIdList){
                 if (user.getPersonId().equals(personId)) {
@@ -61,7 +61,7 @@ public class UserService {
                     return "userCreated";
                 }
             }
-            return "notValidId";
+            return "notValidPersonId";
         }
     }
 

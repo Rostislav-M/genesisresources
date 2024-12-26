@@ -21,9 +21,9 @@ public class UserController {
         String createdUserMessage = userService.createUser(user);
 
         switch (createdUserMessage) {
-                case "notValidId":
+                case "notValidPersonId":
                     return new ResponseEntity<>("The provided personId is invalid. Make sure that it is valid and authorized", HttpStatus.BAD_REQUEST);
-                case "idUsed":
+                case "personIdUsed":
                     return new ResponseEntity<>("The provided personId is used by user in database", HttpStatus.BAD_REQUEST);
                 case "userCreated":
                    return new ResponseEntity<>("User has been created", HttpStatus.CREATED);
